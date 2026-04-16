@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="nav">
+    <a href="/recommend">Рекомендации</a>
+    <a href="/favorites">Избранное ❤️</a>
+    <a href="/account" class="btn-outline">Моя анкета</a>
+</div>
+
+<div class="container">
+    <h1>Избранное ❤️</h1>
+
+    {% for pet in pets %}
+        <div class="card">
+            <img src="{{ pet.image }}">
+            <h2>{{ pet.pet_name }}</h2>
+            <p>{{ pet.pet_type }}</p>
+            <p class="reason">{{ pet.reason }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+    <div class="card">
+        <h1>Мой профиль 🐾</h1>
+
+        <form method="POST" class="form">
+
+            <label>Активность</label>
+            <select name="activity_level">
+                <option value="low" {% if profile.activity_level == 'low' %}selected{% endif %}>Спокойный</option>
+                <option value="medium" {% if profile.activity_level == 'medium' %}selected{% endif %}>Средний</option>
+                <option value="high" {% if profile.activity_level == 'high' %}selected{% endif %}>Активный</option>
+            </select>
+
+            <label>Жильё</label>
+            <select name="home_type">
+                <option value="apartment" {% if profile.home_type == 'apartment' %}selected{% endif %}>Квартира</option>
+                <option value="house" {% if profile.home_type == 'house' %}selected{% endif %}>Дом</option>
+            </select>
+
+            <label>Дети</label>
+            <select name="has_kids">
+                <option value="yes" {% if profile.has_kids %}selected{% endif %}>Да</option>
+                <option value="no" {% if not profile.has_kids %}selected{% endif %}>Нет</option>
+            </select>
+
+            <label>Тип питомца</label>
+            <select name="pet_type">
+                <option value="dog" {% if profile.pet_type == 'dog' %}selected{% endif %}>Собака</option>
+                <option value="cat" {% if profile.pet_type == 'cat' %}selected{% endif %}>Кот</option>
+                <option value="both" {% if profile.pet_type == 'both' %}selected{% endif %}>Любой</option>
+            </select>
+
+            <button type="submit" class="btn">Сохранить изменения</button>
+
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

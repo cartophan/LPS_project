@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="page">
+    <div class="card">
+
+        <h1>Анкета 🐾</h1>
+        <p class="subtitle">Поможем подобрать идеального питомца</p>
+
+        <form method="POST" class="form">
+
+            <label>Активность</label>
+            <select name="activity_level">
+                <option value="low">Спокойный</option>
+                <option value="medium">Средний</option>
+                <option value="high">Активный</option>
+            </select>
+
+            <label>Жильё</label>
+            <select name="home_type">
+                <option value="apartment">Квартира</option>
+                <option value="house">Дом</option>
+            </select>
+
+            <label>Дети</label>
+            <select name="has_kids">
+                <option value="yes">Да</option>
+                <option value="no">Нет</option>
+            </select>
+
+            <label>Тип питомца</label>
+            <select name="pet_type">
+                <option value="dog">Собака</option>
+                <option value="cat">Кот</option>
+                <option value="both">Любой</option>
+            </select>
+
+            <button type="submit" class="btn">Сохранить</button>
+
+        </form>
+
+    </div>
+</div>
+
+</body>
+</html>

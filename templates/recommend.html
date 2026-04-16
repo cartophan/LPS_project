@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="nav">
+    <a href="/recommend" class="btn-outline">Рекомендации</a>
+    <a href="/favorites" class="btn-outline">Избранное ❤️</a>
+    <a href="/account" class="btn-outline">Моя анкета</a>
+</div>
+
+<div class="container">
+    <h1>Твои питомцы 🐶🐱</h1>
+
+    <a href="/recommend?refresh=1">
+        <button class="btn">🔄 Обновить</button>
+    </a>
+
+    <div>
+        {% for pet in pets %}
+            <div class="card">
+                <img src="{{ pet.image }}">
+                <h2>{{ pet.name }}</h2>
+                <p>{{ pet.type }}</p>
+
+                <p class="reason">{{ pet.reason }}</p>
+
+                <form method="POST" action="/add_favorite">
+                    <input type="hidden" name="name" value="{{ pet.name }}">
+                    <input type="hidden" name="type" value="{{ pet.type }}">
+                    <input type="hidden" name="image" value="{{ pet.image }}">
+                    <input type="hidden" name="reason" value="{{ pet.reason }}">
+                    <button class="btn">❤️ В избранное</button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

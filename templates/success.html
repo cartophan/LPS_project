@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Успешно</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>Вы вошли 🎉</h1>
+    <p>{{ email }}</p>
+
+    <a href="/profile">
+        <button class="btn">Перейти к анкете</button>
+    </a>
+</div>
+
+</body>
+</html>

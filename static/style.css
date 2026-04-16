@@ -1,0 +1,144 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffe4ec, #ffd6e0);
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    color: #db7093;
+    font-size: 36px;
+}
+
+/* ===== КНОПКИ (ОДИН УНИВЕРСАЛЬНЫЙ СТИЛЬ) ===== */
+.btn {
+    background: linear-gradient(135deg, #db7093, #ff85a2);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+/* ===== КАРТОЧКИ ПИТОМЦЕВ ===== */
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: inline-block;
+    width: 280px;
+    vertical-align: top;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 15px;
+}
+
+.reason {
+    font-size: 14px;
+    color: #555;
+    margin-top: 10px;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+.nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #db7093;
+    font-weight: bold;
+}
+
+/* ===== СТРАНИЦА АНКЕТЫ ===== */
+.page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-card {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.form-card p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+}
+
+select {
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background: #fafafa;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+select:focus {
+    outline: none;
+    border-color: #ff85a2;
+    box-shadow: 0 0 6px rgba(255, 133, 162, 0.4);
+    background: white;
+}
+
+.btn-outline {
+    background: white;
+    color: #db7093;
+    padding: 8px 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.btn-outline:hover {
+    background: #db7093;
+    color: white;
+    transform: scale(1.05);
+}
