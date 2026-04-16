@@ -253,12 +253,19 @@ def recommend():
   {{
     "type": "dog или cat",
     "name": "точное название из списка",
-    "reason": "почему подходит",
+    "reason": "конкретно почему этот питомец подходит именно этому человеку, с учётом его характера и особенностей породы. 1–2 предложения, уникальные для каждой породы",
     "pros": "2-3 плюса",
     "cons": "1-2 минуса"
   }}
 ]
+Каждое описание reason должно быть УНИКАЛЬНЫМ.
 
+НЕ используй одинаковые или шаблонные фразы.
+
+Каждый питомец должен иметь индивидуальное объяснение,
+основанное на его особенностях.
+
+Запрещено повторять одну и ту же формулировку.
 НЕ ПИШИ ничего кроме JSON
 НЕ ПРИДУМЫВАЙ новые породы.
 """
@@ -469,6 +476,23 @@ def account():
         return redirect("/recommend")
 
     return render_template("account.html", profile=profile)
+
+@app.route("/delete_favorite", methods=["POST"])
+def delete_favorite():
+    user_id = session.get("user_id")
+
+    if not user_id:
+        return redirect("/")
+
+    fav_id = request.form.get("fav_id")
+
+    fav = Favorite.query.filter_by(id=fav_id, user_id=user_id).first()
+
+    if fav:
+        db.session.delete(fav)
+        db.session.commit()
+
+    return redirect("/favorites")
 
 
 with app.app_context():

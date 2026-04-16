@@ -17,9 +17,14 @@
     {% for pet in pets %}
         <div class="card">
             <img src="{{ pet.image }}">
-            <h2>{{ pet.pet_name }}</h2>
-            <p>{{ pet.pet_type }}</p>
-            <p class="reason">{{ pet.reason }}</p>
+
+            <h3>{{ pet.pet_name }}</h3>
+            <p>{{ pet.reason }}</p>
+
+            <form method="POST" action="/delete_favorite">
+                <input type="hidden" name="fav_id" value="{{ pet.id }}">
+                <button class="btn">Удалить</button>
+            </form>
         </div>
     {% endfor %}
 </div>
