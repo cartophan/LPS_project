@@ -1,19 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <title>LPS</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
-    <h1>🐾 Найди своего идеального питомца</h1>
+<div class="background-blobs"></div>
 
-    <p>Умный подбор с помощью AI</p>
+<div class="hero">
 
-    <a href="/login">
-        <button class="btn">Войти через Google</button>
-    </a>
+    <div class="card hero-card fade-in">
+
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo">
+
+        <h1>Найди своего идеального питомца 🐾</h1>
+
+        <p class="subtitle">
+            Умный подбор кошек и собак с помощью AI
+            под твой стиль жизни
+        </p>
+
+        <div class="features">
+            <span>🐶 Учитывает характер</span>
+            <span>🏠 Условия жизни</span>
+            <span>❤️ Совместимость</span>
+        </div>
+        <div class ='center'>
+            <a href="/login">
+                <button class="btn glow google">Начать подбор</button>
+            </a>
+        </div>
+
+    </div>
+
 </div>
 
 </body>

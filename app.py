@@ -57,9 +57,9 @@ class Favorite(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     pet_name = db.Column(db.String(120))
-    pet_type = db.Column(db.String(10))  # dog / cat
+    pet_type = db.Column(db.String(10))
     image = db.Column(db.String(300))
-    reason = db.Column(db.Text)  # 🔥 объяснение от ИИ
+    reason = db.Column(db.Text)
 
 # 1. Главная страница с кнопкой
 @app.route("/")
@@ -85,7 +85,6 @@ def login():
 def callback():
     code = request.args.get("code")
 
-    # Обмениваем code на токен
     token_url = "https://oauth2.googleapis.com/token"
 
     data = {
@@ -118,9 +117,16 @@ def callback():
         db.session.commit()
 
     session["user_id"] = user.id
+    session["user_email"] = user.email
 
+    profile = Profile.query.filter_by(user_id=user.id).first()
 
-    return render_template("success.html", email=user_info.get("email"))
+    return render_template(
+        "success.html",
+        email=email,
+        has_profile=bool(profile)
+    )
+
 
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
@@ -135,7 +141,7 @@ def profile():
         kids = request.form.get("has_kids") == "no"
         pet_type = request.form.get("pet_type")
 
-        # 🔥 ищем существующую анкету
+        # ищем существующую анкету
         profile = Profile.query.filter_by(user_id=user_id).first()
 
         if profile:
@@ -177,14 +183,14 @@ def recommend():
 
     refresh = request.args.get("refresh")
 
-    # 🔥 если НЕ refresh и есть кэш → показываем старое
+    # если НЕ refresh и есть кэш → показываем старое
     if not refresh and session.get("last_recommendations"):
         return render_template(
             "recommend.html",
             pets=session["last_recommendations"]
         )
 
-    # 🔹 1. получаем собак
+    #  1. получаем собак
     dog_res = requests.get(
         "https://api.thedogapi.com/v1/breeds",
         headers={"x-api-key": DOG_API_KEY}
@@ -195,7 +201,7 @@ def recommend():
     else:
         dogs = dog_res.json()
 
-    # 🔹 2. получаем котов
+    #  2. получаем котов
     cat_res = requests.get(
         "https://api.thecatapi.com/v1/breeds",
         headers={"x-api-key": CAT_API_KEY}
@@ -206,7 +212,7 @@ def recommend():
     else:
         cats = cat_res.json()
 
-    # 🔹 3. объединяем
+    #  3. объединяем
     breed_list = []
 
     if profile.pet_type == "dog":
@@ -217,16 +223,14 @@ def recommend():
         for c in cats[:30]:
             breed_list.append(f"Cat: {c['name']} ({c.get('temperament', '')})")
 
-    else:  # both
+    else:
         for d in dogs[:30]:
             breed_list.append(f"Dog: {d['name']} ({d.get('temperament', '')})")
 
         for c in cats[:30]:
             breed_list.append(f"Cat: {c['name']} ({c.get('temperament', '')})")
-    dog_breeds_map = {d["name"]: d["id"] for d in dogs}
-    cat_breeds_map = {c["name"]: c["id"] for c in cats}
 
-    # 🔥 4. промпт
+    #  4. промпт
     prompt = f"""
 Ты помощник по подбору питомцев.
 
@@ -270,7 +274,7 @@ def recommend():
 НЕ ПРИДУМЫВАЙ новые породы.
 """
 
-    # 🔹 5. запрос к Mistral
+    #  5. запрос к Mistral
     try:
         chat_response = client.chat.complete(
             model="mistral-small",
@@ -320,7 +324,7 @@ def recommend():
         remaining = [x for x in selected if x not in final_selected]
         final_selected.extend(remaining[:6 - len(final_selected)])
 
-    # 🔹 7. получаем картинки
+    #  7. получаем картинки
     pets = []
 
     import re
@@ -329,17 +333,13 @@ def recommend():
         name = item["name"]
         pet_type = item["type"]
 
-        # 🔥 чистим название
+        #  чистим название
         name_clean = re.sub(r"\(.*\)", "", name)
         name_clean = name_clean.replace("Dog:", "").replace("Cat:", "")
         name_clean = name_clean.strip()
 
         breed_id = None
-        search_data = None
 
-        # =========================
-        # 🐶 DOG
-        # =========================
         if pet_type == "dog":
 
             search = requests.get(
@@ -372,9 +372,6 @@ def recommend():
                 params={"breed_id": breed_id, "limit": 1}
             )
 
-        # =========================
-        # 🐱 CAT
-        # =========================
         elif pet_type == "cat":
 
             search = requests.get(
@@ -410,9 +407,7 @@ def recommend():
         else:
             continue
 
-        # =========================
-        # 📸 IMAGE RESULT
-        # =========================
+
         data = res.json()
 
         if data:

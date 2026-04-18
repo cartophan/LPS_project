@@ -1,21 +1,120 @@
+/* ===== БАЗА (НЕ ТРОГАЕМ) ===== */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #ffe4ec, #ffd6e0);
 }
 
+/* ===== НОВЫЙ ФОН (ДЛЯ INDEX) ===== */
+.background-blobs::before,
+.background-blobs::after {
+    content: "";
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: #ff85a2;
+    opacity: 0.3;
+    border-radius: 50%;
+    filter: blur(100px);
+    animation: move 10s infinite alternate;
+    z-index: 0;
+}
+
+.background-blobs::after {
+    left: 60%;
+    top: 50%;
+    background: #db7093;
+}
+
+@keyframes move {
+    from { transform: translateY(-50px); }
+    to { transform: translateY(50px); }
+}
+
+/* ===== HERO (ТОЛЬКО ДЛЯ INDEX) ===== */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== CONTAINER (СТАРОЕ) ===== */
 .container {
     max-width: 900px;
     margin: 50px auto;
     text-align: center;
 }
 
-h1 {
-    color: #db7093;
-    font-size: 36px;
+/* ===== КАРТОЧКА (УЛУЧШЕНА, НО СОВМЕСТИМА) ===== */
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 15px;
+    margin: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    display: inline-block;
+    width: 280px;
+    vertical-align: top;
+    transition: 0.3s;
 }
 
-/* ===== КНОПКИ (ОДИН УНИВЕРСАЛЬНЫЙ СТИЛЬ) ===== */
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* ===== СПЕЦ-КАРТОЧКА (INDEX) ===== */
+.card.hero-card {
+    max-width: 420px;
+    width: 90%;
+    padding: 60px;
+    display: block;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.9);
+}
+
+/* ===== ЛОГО ===== */
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+    animation: float 3s ease-in-out infinite;
+    opacity: 0.9;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px);}
+    50% { transform: translateY(-10px);}
+    100% { transform: translateY(0px);}
+}
+
+/* ===== ТЕКСТ ===== */
+h1 {
+    color: #db7093;
+    font-size: 42px;
+    font-weight: 700;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ===== ФИЧИ (INDEX) ===== */
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #444;
+    text-align: center;
+}
+
+/* ===== КНОПКИ (НЕ ЛОМАЕМ) ===== */
 .btn {
     background: linear-gradient(135deg, #db7093, #ff85a2);
     color: white;
@@ -27,29 +126,25 @@ h1 {
     transition: 0.3s;
     display: inline-block;
     text-decoration: none;
+    margin: auto;
 }
 
 .btn:hover {
     transform: scale(1.05);
 }
 
-/* ===== КАРТОЧКИ ПИТОМЦЕВ ===== */
-.card {
-    background: white;
-    border-radius: 20px;
-    padding: 15px;
-    margin: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    display: inline-block;
-    width: 280px;
-    vertical-align: top;
+/* ===== СВЕЧЕНИЕ (НОВОЕ) ===== */
+.glow {
+    box-shadow: 0 0 15px rgba(255, 105, 135, 0.6);
 }
 
+/* ===== ИЗОБРАЖЕНИЯ ===== */
 .card img {
     width: 100%;
     border-radius: 15px;
 }
 
+/* ===== ТЕКСТ ПРИЧИНЫ ===== */
 .reason {
     font-size: 14px;
     color: #555;
@@ -64,6 +159,7 @@ h1 {
     background: white;
     padding: 10px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 10;
 }
 
 .nav a {
@@ -73,7 +169,7 @@ h1 {
     font-weight: bold;
 }
 
-/* ===== СТРАНИЦА АНКЕТЫ ===== */
+/* ===== АНКЕТА ===== */
 .page {
     height: 100vh;
     display: flex;
@@ -126,6 +222,7 @@ select:focus {
     background: white;
 }
 
+/* ===== OUTLINE BUTTON ===== */
 .btn-outline {
     background: white;
     color: #db7093;
@@ -141,4 +238,151 @@ select:focus {
     background: #db7093;
     color: white;
     transform: scale(1.05);
+}
+
+/* ===== АНИМАЦИЯ ПОЯВЛЕНИЯ ===== */
+.fade-in {
+    animation: fade 1.2s ease;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card.hero-card {
+    width: 90% !important;       /* перебивает 280px */
+    max-width: 800px;
+
+    display: block;
+    margin: 0 auto;
+
+    padding: 60px;
+
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.9);
+}
+
+.hero {
+    padding: 20px;
+}
+
+.card img {
+    border-radius: 15px;
+}
+
+/* фикс для логотипа */
+.card .logo {
+    width: 200px !important;
+    display: block;
+    margin: 0 auto 20px;
+}
+.center{
+    text-align: center;
+}
+.btn.google {
+    padding: 18px 45px;
+    font-size: 18px;
+}
+.success-icon {
+    font-size: 40px;
+    color: #db7093;
+    margin-bottom: 10px;
+    animation: pop 0.5s ease;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+/* ===== SUCCESS PAGE ===== */
+
+.success-container {
+    min-height: 100vh;              /* занимает весь экран */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;        /* по центру по вертикали */
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+/* верхняя часть */
+.success-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 40px;
+    justify-content: center;
+    text-align: left;
+}
+
+.logo.small {
+    width: 80px !important;
+}
+
+/* текст */
+.success-header h2 {
+    margin: 0;
+    color: #db7093;
+}
+
+.email {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+/* блоки */
+.success-main {
+    display: flex;
+    gap: 25px;
+
+    width: 100%;
+    max-width: 900px;
+}
+
+/* карточки */
+.success-card {
+    flex: 1;
+
+    background: white;
+    padding: 40px;              /* БОЛЬШЕ */
+    border-radius: 25px;
+
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+
+    text-align: center;
+    transition: 0.3s;
+
+    min-height: 260px;          /* чтобы выглядели массивно */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.success-card:hover {
+    transform: translateY(-5px);
+}
+
+.success-card h3 {
+    color: #db7093;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.success-card p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+.success-card .btn,
+.success-card .btn-outline {
+    width: 100%;
 }

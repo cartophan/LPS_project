@@ -1,18 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Успешно</title>
+    <meta charset="UTF-8">
+    <title>Успешный вход</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
-    <h1>Вы вошли 🎉</h1>
-    <p>{{ email }}</p>
+<div class="background-blobs"></div>
 
-    <a href="/profile">
-        <button class="btn">Перейти к анкете</button>
-    </a>
+<div class="success-container fade-in">
+
+    <!-- верх -->
+    <div class="success-header">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="logo small">
+
+        <div class="success-icon">✔</div>
+
+        <div>
+            <h2>Добро пожаловать 💖</h2>
+            <p class="email">Ты вошёл как <b>{{ email }}</b></p>
+        </div>
+    </div>
+
+    <!-- основной блок -->
+    <div class="success-main">
+
+        <div class="success-card">
+            <h3>🐾 Начать подбор</h3>
+            <p>Заполни анкету, и мы подберём идеального питомца</p>
+
+            <a href="/profile">
+                <button class="btn glow">Заполнить анкету</button>
+            </a>
+        </div>
+
+        <div class="success-card">
+            <h3>✨ Быстрый старт</h3>
+            <p>Посмотреть подборку питомцев прямо сейчас</p>
+
+                    {% if has_profile %}
+            <a href="/recommend">
+                <button class="btn-outline">Смотреть питомцев</button>
+            </a>
+        {% else %}
+            <a href="/profile">
+                <button class="btn-outline">Сначала заполнить анкету</button>
+            </a>
+        {% endif %}
+        </div>
+
+    </div>
+
 </div>
 
 </body>
