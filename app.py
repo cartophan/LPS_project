@@ -5,6 +5,8 @@ import os
 from dotenv import load_dotenv
 from flask import session
 from mistralai.client import Mistral
+import re
+import json
 
 load_dotenv()
 
@@ -293,8 +295,6 @@ def recommend():
         print("MISTRAL ERROR:", e)
         return "ИИ сейчас перегружен, попробуйте позже"
 
-    import re
-    import json
 
     result_text = chat_response.choices[0].message.content
 
@@ -326,8 +326,6 @@ def recommend():
 
     #  7. получаем картинки
     pets = []
-
-    import re
 
     for item in final_selected:
         name = item["name"]
